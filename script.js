@@ -18,15 +18,19 @@ quoteForm?.addEventListener('submit', (event) => {
   event.preventDefault();
   const name = document.getElementById('name').value.trim();
   const service = document.getElementById('service').value;
+  const location = document.getElementById('location').value.trim();
   const message = document.getElementById('message').value.trim();
 
   const text = [
     `Hi MOSNET GROUP, my name is ${name}.`,
     `I need a quote for: ${service}.`,
-    message ? `Details: ${message}` : ''
+    `Project location: ${location}.`,
+    message ? `Project details: ${message}` : '',
+    `I can also send photos of the work if needed.`
   ].filter(Boolean).join('\n');
 
   window.open(`https://wa.me/27731621954?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
 });
 
-document.getElementById('year').textContent = new Date().getFullYear();
+const year = document.getElementById('year');
+if (year) year.textContent = new Date().getFullYear();
