@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex,nofollow" />
   <meta name="theme-color" content="#0b2c63" />
-  <title>MOSNET GROUP | Invoice Generator</title>
+  <title>MOSNET GROUP | Invoice & Quotation Generator</title>
   <link rel="stylesheet" href="invoice.css" />
 </head>
 <body>
@@ -15,7 +15,7 @@
         <img src="assets/mosnet-logo.png" alt="MOSNET GROUP logo" />
         <div>
           <strong>MOSNET GROUP</strong>
-          <span>Construction Invoice Generator</span>
+          <span>Construction Invoice & Quotation Generator</span>
         </div>
       </div>
       <a class="back-link" href="index.html">View website</a>
@@ -26,8 +26,8 @@
     <section class="intro-card">
       <div>
         <p class="eyebrow">PRIVATE BUSINESS TOOL</p>
-        <h1>Create a client invoice in minutes.</h1>
-        <p>Enter the customer and job details below. The totals calculate automatically, then you can download, print or share the invoice as a PDF.</p>
+        <h1>Create an invoice or quotation.</h1>
+        <p>Use the same tool for both documents. Long job descriptions, work processes and material notes expand as you type and are carried into the PDF.</p>
       </div>
       <div class="privacy-note">
         <strong>Data stays in this browser</strong>
@@ -36,18 +36,38 @@
     </section>
 
     <form id="invoiceForm" autocomplete="off">
+      <section class="panel document-type-panel">
+        <div class="panel-title compact-title">
+          <span>00</span>
+          <div>
+            <h2>What are you creating?</h2>
+            <p>Choose the document type first. The PDF will change automatically.</p>
+          </div>
+        </div>
+        <div class="document-switch" role="group" aria-label="Document type">
+          <label class="type-option">
+            <input type="radio" name="documentType" value="quotation" id="typeQuotation" checked />
+            <span><strong>Quotation</strong><small>Send before the client accepts the work</small></span>
+          </label>
+          <label class="type-option">
+            <input type="radio" name="documentType" value="invoice" id="typeInvoice" />
+            <span><strong>Invoice</strong><small>Send when requesting payment</small></span>
+          </label>
+        </div>
+      </section>
+
       <section class="panel two-col">
         <div>
           <div class="panel-title">
             <span>01</span>
             <div>
-              <h2>Invoice details</h2>
-              <p>Keep a different invoice number for each customer invoice.</p>
+              <h2 id="detailsHeading">Quotation details</h2>
+              <p id="detailsHelp">Keep a different quotation number for each quotation.</p>
             </div>
           </div>
           <div class="field-grid two">
             <label>
-              <span>Invoice number</span>
+              <span id="numberLabel">Quotation number</span>
               <input id="invoiceNumber" type="text" required />
             </label>
             <label>
@@ -55,11 +75,11 @@
               <input id="reference" type="text" placeholder="Optional" />
             </label>
             <label>
-              <span>Invoice date</span>
+              <span id="dateLabel">Quotation date</span>
               <input id="invoiceDate" type="date" required />
             </label>
             <label>
-              <span>Due date</span>
+              <span id="secondDateLabel">Valid until</span>
               <input id="dueDate" type="date" required />
             </label>
           </div>
@@ -83,7 +103,7 @@
           <span>02</span>
           <div>
             <h2>Client details</h2>
-            <p>These details will appear under “Bill To” on the PDF.</p>
+            <p id="clientHelp">These details will appear under “Quote For” on the PDF.</p>
           </div>
         </div>
         <div class="field-grid two">
@@ -106,12 +126,32 @@
         </div>
       </section>
 
-      <section class="panel">
-        <div class="panel-title items-heading">
+      <section class="panel detail-panel">
+        <div class="panel-title">
           <span>03</span>
           <div>
-            <h2>Construction services</h2>
-            <p>Add each service or job item that the client is paying for.</p>
+            <h2>Detailed work information</h2>
+            <p>Use as much detail as needed. Both boxes grow automatically while you type.</p>
+          </div>
+        </div>
+        <div class="long-detail-grid">
+          <label>
+            <span>Scope of work / process</span>
+            <textarea id="scopeOfWork" class="auto-grow long-text" rows="4" placeholder="Example: Remove damaged roof sheets, inspect timber, replace damaged sections, install new sheets, seal joins and clean the work area..."></textarea>
+          </label>
+          <label>
+            <span>Materials needed & how they will be used</span>
+            <textarea id="materials" class="auto-grow long-text" rows="4" placeholder="Example: 12 roof sheets — replacement of damaged sections; waterproof membrane — sealing valleys and joints; paint — final protective finish..."></textarea>
+          </label>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-title items-heading">
+          <span>04</span>
+          <div>
+            <h2>Construction services & pricing</h2>
+            <p>Each description can be as long as needed and will expand automatically.</p>
           </div>
           <button class="secondary-btn" id="addItemBtn" type="button">+ Add item</button>
         </div>
@@ -132,8 +172,8 @@
       <section class="panel totals-panel">
         <div class="notes-area">
           <label>
-            <span>Notes / payment terms</span>
-            <textarea id="notes" rows="5" placeholder="e.g. 50% deposit required before work begins."></textarea>
+            <span id="notesLabel">Quotation notes / terms</span>
+            <textarea id="notes" class="auto-grow" rows="5" placeholder="e.g. Quotation valid for 14 days. 50% deposit required before work begins."></textarea>
           </label>
           <div class="bank-card">
             <strong>Payment details</strong>
@@ -159,30 +199,28 @@
       <section class="action-bar">
         <div class="action-copy">
           <strong>Ready?</strong>
-          <span>Generate a branded MOSNET GROUP PDF invoice.</span>
+          <span id="actionCopy">Generate a branded MOSNET GROUP PDF quotation.</span>
         </div>
         <div class="actions">
-          <button class="secondary-btn" id="newInvoiceBtn" type="button">New invoice</button>
+          <button class="secondary-btn" id="newInvoiceBtn" type="button">New quotation</button>
           <button class="secondary-btn" id="printBtn" type="button">Print / Save PDF</button>
           <button class="share-btn" id="shareBtn" type="button">Share PDF</button>
-          <button class="primary-btn" id="downloadBtn" type="button">Download PDF</button>
+          <button class="primary-btn" id="downloadBtn" type="button">Download Quotation PDF</button>
         </div>
       </section>
     </form>
 
-    <p class="footer-note">MOSNET GROUP Invoice Tool • Construction services only</p>
+    <p class="footer-note">MOSNET GROUP Business Document Tool • Construction services only</p>
   </main>
 
   <template id="itemTemplate">
     <div class="item-row">
       <label class="mobile-label"><span>Service</span>
         <select class="item-service">
-          <option>Building</option>
-          <option>Bricklaying</option>
+          <option>Building &amp; Plastering</option>
           <option>Roofing</option>
           <option>Waterproofing</option>
           <option>Painting</option>
-          <option>Plastering</option>
           <option>Ceilings</option>
           <option>Tiling</option>
           <option>Plumbing</option>
@@ -190,7 +228,7 @@
           <option>Other</option>
         </select>
       </label>
-      <label class="mobile-label"><span>Description</span><input class="item-description" type="text" placeholder="Describe the work" /></label>
+      <label class="mobile-label"><span>Description</span><textarea class="item-description auto-grow" rows="2" placeholder="Describe the work, process or item"></textarea></label>
       <label class="mobile-label"><span>Qty</span><input class="item-qty" type="number" min="0" step="0.01" value="1" /></label>
       <label class="mobile-label"><span>Unit price</span><input class="item-price" type="number" min="0" step="0.01" placeholder="0.00" /></label>
       <div class="item-total mobile-label"><span>Total</span><strong>R 0.00</strong></div>
