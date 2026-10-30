@@ -185,3 +185,12 @@ footer { background: #050608; color: #c8cbd0; padding: 28px 0; border-top: 1px s
   .footer-wrap { flex-direction: column; align-items: flex-start; }
   .floating-wa { left: 14px; right: 14px; bottom: 14px; text-align: center; }
 }
+
+/* Diversified company / ventures section */
+.company-section { background: #f8f7f3; }
+.company-section .section-heading { max-width: 900px; margin-bottom: 28px; }
+.company-section .section-heading p:not(.eyebrow) { max-width: 850px; }
+.venture-highlight { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 28px 32px; border: 1px solid var(--line); border-radius: 18px; background: #fff; }
+.venture-kicker { display: block; color: #8a6817; font-size: .72rem; font-weight: 900; letter-spacing: .15em; margin-bottom: 8px; }
+.venture-highlight h3 { margin: 0; font-size: clamp(1.35rem, 2.8vw, 2rem); line-height: 1.15; }
+@media (max-width: 620px) { .venture-highlight { align-items: flex-start; flex-direction: column; padding: 23px; } }
